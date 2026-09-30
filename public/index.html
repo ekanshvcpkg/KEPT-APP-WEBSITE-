@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KEPT</title>
+  <meta name="description" content="Keep your word. Level up. Or everyone sees. A real-life level-up game on Solana Mobile.">
+  <meta property="og:title" content="KEPT - A real-life level-up game">
+  <meta property="og:description" content="Keep your word. Level up. Or everyone sees. A real-life level-up game on Solana Mobile.">
+  <meta property="og:image" content="https://example.com/og-image-placeholder.jpg">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230B0B0C'/%3E%3Ccircle cx='16' cy='16' r='10' fill='none' stroke='%23F5B94A' stroke-width='3'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0B0B0C;
+      --text: #FFFFFF;
+      --secondary: #6E6E73;
+      --hairline: #2A2A2E;
+      --gold: #F5B94A;
+      --font-inter: 'Inter', sans-serif;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-inter);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    section {
+      padding: 96px 0;
+      border-bottom: 1px solid var(--hairline);
+    }
+    
+    @media (min-width: 768px) {
+      section {
+        padding: 128px 0;
+      }
+    }
+
+    section:last-child {
+      border-bottom: none;
+    }
+
+    /* TYPOGRAPHY */
+    .hero-title {
+      font-size: 40px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 24px;
+    }
+
+    @media (min-width: 768px) {
+      .hero-title {
+        font-size: 64px;
+      }
+    }
+
+    .hero-subtitle {
+      font-size: 24px;
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+    
+    .hero-desc {
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--secondary);
+      margin-bottom: 48px;
+    }
+
+    h2 {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 24px;
+    }
+
+    p {
+      font-size: 16px;
+      font-weight: 400;
+      margin-bottom: 16px;
+    }
+    
+    p:last-child {
+      margin-bottom: 0;
+    }
+
+    .caption {
+      font-size: 13px;
+      color: var(--secondary);
+      margin-top: 16px;
+    }
+
+    .text-gold {
+      color: var(--gold);
+    }
+
+    /* BUTTONS */
+    .btn-group {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 24px;
+      font-size: 16px;
+      font-weight: 500;
+      text-decoration: none;
+      color: var(--text);
+      background: transparent;
+      border-radius: 2px;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn-primary {
+      border: 1px solid var(--gold);
+    }
+
+    .btn-primary:hover, .btn-primary:active {
+      border-color: #ffd685;
+    }
+
+    .btn-secondary {
+      border: 1px solid var(--secondary);
+      color: var(--secondary);
+    }
+
+    .btn-secondary:hover, .btn-secondary:active {
+      border-color: var(--text);
+      color: var(--text);
+    }
+
+    /* ANIMATIONS ON SCROLL */
+    .reveal {
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 400ms cubic-bezier(0.22, 1, 0.36, 1), 
+                  transform 400ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+      .btn:active {
+        transform: none;
+      }
+    }
+
+    /* ONE IDEA */
+    .one-idea {
+      text-align: center;
+    }
+    
+    .one-idea p {
+      font-size: 20px;
+      margin-bottom: 32px;
+    }
+    
+    .one-idea p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* CORNER BRACKETS */
+    .card {
+      position: relative;
+      padding: 40px 32px;
+      margin: 32px 0;
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .bracket {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      border-color: var(--hairline);
+      border-style: solid;
+    }
+
+    .bracket-tl { top: 0; left: 0; border-width: 1px 0 0 1px; }
+    .bracket-tr { top: 0; right: 0; border-width: 1px 1px 0 0; }
+    .bracket-bl { bottom: 0; left: 0; border-width: 0 0 1px 1px; }
+    .bracket-br { bottom: 0; right: 0; border-width: 0 1px 1px 0; }
+
+    /* HP BAR */
+    .hp-container {
+      margin: 48px 0;
+    }
+
+    .hp-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      font-family: monospace;
+      font-size: 14px;
+      color: var(--secondary);
+    }
+    
+    .hp-bar {
+      display: flex;
+      gap: 4px;
+      height: 12px;
+    }
+
+    .hp-segment {
+      flex: 1;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: #FFFFFF;
+      box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+      position: relative;
+    }
+
+    .hp-segment.crack {
+      transform-origin: center;
+    }
+
+    .oaths-section.active .hp-segment.crack {
+      animation: crackFade 600ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      animation-delay: 400ms;
+    }
+
+    .hp-counter::after {
+      content: "100";
+    }
+
+    .oaths-section.active .hp-counter::after {
+      animation: countTick 600ms forwards;
+      animation-delay: 400ms;
+    }
+
+    @keyframes crackFade {
+      0% {
+        opacity: 1;
+        transform: scaleY(1);
+        background: #FFFFFF;
+      }
+      20% {
+        transform: scaleY(0.8) skewX(10deg);
+        background: var(--bg);
+        border-color: var(--secondary);
+        box-shadow: none;
+      }
+      100% {
+        opacity: 0.2;
+        background: transparent;
+        border-color: var(--hairline);
+        box-shadow: none;
+        transform: scaleY(1);
+      }
+    }
+
+    @keyframes countTick {
+      0%, 19.99% { content: "100"; }
+      20%, 100% { content: "80"; }
+    }
+    
+    @media (prefers-reduced-motion: reduce) {
+      .oaths-section.active .hp-segment.crack {
+        animation: none;
+        opacity: 0.2;
+        background: transparent;
+        border-color: var(--hairline);
+        box-shadow: none;
+      }
+      .oaths-section.active .hp-counter::after {
+        animation: none;
+        content: "80";
+      }
+    }
+
+    /* THE RULE */
+    .rule-section {
+      text-align: center;
+      padding: 160px 0;
+    }
+
+    .rule-line {
+      font-size: 28px;
+      font-weight: 500;
+      line-height: 1.4;
+    }
+    
+    @media (min-width: 768px) {
+      .rule-line {
+        font-size: 36px;
+      }
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 48px 0 96px;
+    }
+
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    @media (min-width: 768px) {
+      .footer-content {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+
+    .footer-text {
+      font-size: 13px;
+      color: var(--secondary);
+    }
+    
+    .footer-links {
+      display: flex;
+      gap: 16px;
+    }
+
+    .footer-links a {
+      color: var(--secondary);
+      text-decoration: none;
+      font-size: 13px;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: var(--text);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <!-- 1. HERO -->
+    <section class="reveal">
+      <h1 class="hero-title">KEPT</h1>
+      <div class="hero-subtitle">Keep your word. Level up. Or everyone sees.</div>
+      <div class="hero-desc">A real-life level-up game on Solana Mobile.</div>
+      
+      <div class="btn-group">
+        <a href="#" class="btn btn-primary">Download APK</a>
+        <a href="#" class="btn btn-secondary">View source</a>
+      </div>
+    </section>
+
+    <!-- 2. THE ONE IDEA -->
+    <section class="reveal one-idea">
+      <p>You write your own quests.</p>
+      <p>Your camera proves you did them. The photo never leaves your phone.</p>
+      <p>Your record lives on Solana. Nobody can fake a streak.</p>
+    </section>
+
+    <!-- 3. OATHS -->
+    <section class="reveal oaths-section" id="oaths">
+      <h2>Swear it with your people.</h2>
+      
+      <div class="card">
+        <div class="bracket bracket-tl"></div>
+        <div class="bracket bracket-tr"></div>
+        <div class="bracket bracket-bl"></div>
+        <div class="bracket bracket-br"></div>
+        
+        <p>Up to four Keepers share one health bar. Every day someone misses, the group loses 20. At zero the Oath breaks and everyone carries the mark. You each stake Soul you earned — hold the Oath and it comes back, break it and it burns. Nobody wins it.</p>
+        
+        <div class="hp-container">
+          <div class="hp-header">
+            <span>OATH INTEGRITY</span>
+            <span class="hp-counter">HP </span>
+          </div>
+          <div class="hp-bar">
+            <div class="hp-segment"></div>
+            <div class="hp-segment"></div>
+            <div class="hp-segment"></div>
+            <div class="hp-segment"></div>
+            <div class="hp-segment crack"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. THE RULE -->
+    <section class="reveal rule-section">
+      <div class="rule-line">You can buy how you look.</div>
+      <div class="rule-line text-gold">You can never buy what you've kept.</div>
+    </section>
+
+    <!-- 5. BUILT FOR SEEKER -->
+    <section class="reveal">
+      <h2>Built for Seeker</h2>
+      <p>On Seeker, your keys live in the device's secure element and the wallet is part of the OS. Your Keeper identity is bound to hardware you own — not to us, and not to a browser extension you could lose. Network fees are under $0.001.</p>
+      <div class="caption">Running on Solana devnet for the CLOCK IN hackathon. Mainnet-ready.</div>
+    </section>
+
+    <!-- 6. FOOTER -->
+    <footer>
+      <div class="footer-content reveal">
+        <div class="footer-text">KEPT · Built for the Solana Mobile CLOCK IN hackathon, 2026</div>
+        <div class="footer-links">
+          <a href="#">GitHub</a>
+          <a href="#">X</a>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.15
+      };
+
+      const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll('.reveal').forEach(section => {
+        observer.observe(section);
+      });
+    });
+  </script>
+</body>
+</html>
