@@ -9,5 +9,15 @@
         "FF:63:01:38:61:F6:79:05:28:AD:42:07:96:F8:88:2D:D9:CF:DB:2F:A7:9C:D7:D2:4A:BF:92:C3:7E:8E:1F:67"
       ]
     }
+  },
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.kept.testharness",
+      "sha256_cert_fingerprints": [
+        "F4:95:61:58:8A:D4:CB:0D:50:74:C7:2F:5C:B8:FB:D1:A6:30:4A:F5:48:B9:0D:B3:B9:02:4E:64:91:FE:6A:11"
+      ]
+    }
   }
 ]
