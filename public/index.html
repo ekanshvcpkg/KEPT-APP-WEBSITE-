@@ -35,7 +35,7 @@
       --ease: cubic-bezier(.22, 1, .36, 1);
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; overflow-x: clip; }
     body {
       background: var(--bg);
       color: var(--text);
@@ -44,7 +44,7 @@
       line-height: 1.5;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-      overflow-x: hidden;
+      overflow-x: clip;
     }
     img { display: block; max-width: 100%; }
     a { color: inherit; text-decoration: none; }
@@ -225,7 +225,7 @@
     .split-media { position: relative; display: flex; justify-content: center; }
     .split-media .phone { max-width: 320px; position: relative; z-index: 1; }
     .split-media::before {
-      content: ""; position: absolute; width: 460px; height: 460px; border-radius: 50%; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      content: ""; scale: var(--hs, 1); position: absolute; width: 460px; height: 460px; border-radius: 50%; top: 50%; left: 50%; transform: translate(-50%, -50%);
       background: radial-gradient(closest-side, var(--halo, rgba(197,242,92,.16)), transparent);
     }
     .split h2 { font-size: clamp(34px, 4.4vw, 54px); line-height: 1.02; font-weight: 700; letter-spacing: -1.8px; margin-top: 14px; }
@@ -356,9 +356,98 @@
       .reveal { opacity: 1; transform: none; }
       html { scroll-behavior: auto; }
     }
+
+    /* ================= EXPERIENCE LAYER ================= */
+    /* Intro */
+    .intro { position: fixed; inset: 0; z-index: 200; background: var(--bg); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 18px; transition: opacity .6s var(--ease), visibility .6s; }
+    .intro.done { opacity: 0; visibility: hidden; }
+    .intro svg { width: 110px; height: 110px; }
+    .intro svg path { stroke-dasharray: 120; stroke-dashoffset: 120; animation: draw .7s var(--ease) forwards; }
+    .intro svg path:nth-child(1) { animation-delay: .1s; } .intro svg path:nth-child(3) { animation-delay: .25s; } .intro svg path:nth-child(2) { animation-delay: .45s; }
+    @keyframes draw { to { stroke-dashoffset: 0; } }
+    .intro .word { font-size: 34px; font-weight: 800; letter-spacing: 8px; opacity: 0; animation: fadeUp .6s var(--ease) .75s forwards; }
+    .intro .sub { font-family: var(--mono); font-size: 11px; letter-spacing: 2.4px; color: var(--dim); opacity: 0; animation: fadeUp .6s var(--ease) .95s forwards; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+    /* Scroll progress */
+    .progress { position: fixed; top: 0; left: 0; height: 3px; width: 100%; z-index: 120; transform-origin: 0 50%; transform: scaleX(0);
+      background: linear-gradient(90deg, #5EEAD4, var(--lime)); box-shadow: 0 0 12px rgba(197,242,92,.6); }
+
+    /* Cursor spotlight */
+    .spot { position: fixed; left: 0; top: 0; width: 520px; height: 520px; margin: -260px 0 0 -260px; border-radius: 50%; pointer-events: none; z-index: 1;
+      background: radial-gradient(closest-side, rgba(197,242,92,.07), transparent); transition: opacity .4s; opacity: 0; }
+    body.has-pointer .spot { opacity: 1; }
+
+    /* Hero headline words */
+    .hero h1 .w { display: inline-block; opacity: 0; transform: translateY(40%) rotate(4deg); filter: blur(6px); }
+    .hero h1.go .w { animation: wordIn .8s var(--ease) forwards; }
+    @keyframes wordIn { to { opacity: 1; transform: none; filter: none; } }
+    .hero h1 .w.hl { color: var(--lime); }
+    .stage .orb, .stage .bubble, .stage .chip, .keeper { will-change: translate; transition: translate .5s var(--ease); }
+
+    /* Marquee */
+    .marquee { overflow: hidden; border-top: 1px solid rgba(255,255,255,.05); background: var(--lime); color: #131313; transform: rotate(-1.5deg); margin: 0 -20px; position: relative; z-index: 2; }
+    .marquee-track { display: flex; gap: 40px; width: max-content; padding: 14px 0; animation: marquee 32s linear infinite; font-family: var(--mono); font-weight: 600; font-size: 14px; letter-spacing: 2px; white-space: nowrap; }
+    .marquee-track span { display: inline-flex; align-items: center; gap: 40px; }
+    .marquee-track span::after { content: "✦"; }
+    @keyframes marquee { to { transform: translateX(-50%); } }
+
+    /* Scroll-scrubbed words */
+    .scrub .sw { color: #2E2E2E; transition: color .25s; }
+    .scrub .sw.lit { color: var(--text); }
+    .scrub.lime .sw.lit { color: var(--lime); }
+
+    /* 3D phones */
+    .tilt-wrap { perspective: 1200px; }
+    .phone { transition: transform .2s linear; transform-style: preserve-3d; will-change: transform; }
+
+    /* Hover tilt cards */
+    .tiltable { transition: transform .35s var(--ease), box-shadow .35s; transform-style: preserve-3d; }
+    .tiltable .shine { position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0; transition: opacity .3s;
+      background: radial-gradient(400px circle at var(--mx, 50%) var(--my, 50%), rgba(255,255,255,.10), transparent 45%); }
+    .tiltable:hover .shine { opacity: 1; }
+    .step, .seek { position: relative; }
+
+    /* Coins */
+    .coin { position: fixed; z-index: 150; width: 22px; height: 22px; border-radius: 50%; pointer-events: none;
+      background: radial-gradient(circle at 35% 30%, #E6FF9E, #A9D83C 62%);
+      box-shadow: inset 0 2px 0 rgba(255,255,255,.6), 0 3px 0 rgba(60,80,10,.9), 0 8px 14px rgba(0,0,0,.4); }
+
+    /* Gallery coverflow + drag */
+    .gallery { cursor: grab; }
+    .gallery.drag { cursor: grabbing; scroll-snap-type: none; }
+    .gallery figure { transition: transform .25s var(--ease), opacity .25s; }
+    .gallery img { pointer-events: none; user-select: none; -webkit-user-drag: none; }
+
+    /* Section glow that follows scroll */
+    .split-media::before { transition: transform .2s linear; }
+
+    /* CTA rain */
+    .rain { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+    .rain i { position: absolute; top: -40px; width: 18px; height: 18px; border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, #E6FF9E, #A9D83C 62%); box-shadow: 0 3px 0 rgba(60,80,10,.9);
+      animation: fall linear infinite; opacity: .85; }
+    @keyframes fall { to { transform: translateY(900px) rotate(360deg); } }
+
+    /* Magnetic buttons */
+    .btn { will-change: translate; transition: transform .15s var(--ease), filter .2s, translate .3s var(--ease); }
+
+    /* HP crack shake */
+    .hp-card.hit { animation: shake .45s var(--ease); }
+    @keyframes shake { 20% { transform: translateX(-6px); } 40% { transform: translateX(5px); } 60% { transform: translateX(-3px); } 80% { transform: translateX(2px); } }
+    .hp-card.heal { box-shadow: inset 0 0 0 1px rgba(197,242,92,.4), 0 0 40px rgba(197,242,92,.12); transition: box-shadow .4s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .intro { display: none; }
+      .hero h1 .w { opacity: 1; transform: none; filter: none; }
+      .marquee-track { animation: none; }
+      .scrub .sw { color: inherit; }
+    }
   </style>
 </head>
 <body>
+  <div class="progress" id="progress"></div>
+  <div class="spot" id="spot" aria-hidden="true"></div>
 
   <!-- NAV -->
   <nav class="nav">
@@ -386,7 +475,7 @@
     <div class="wrap">
       <div>
         <div class="eyebrow reveal">A real-life level-up game · Solana Mobile</div>
-        <h1 class="reveal d1">Bet your friends you'll do it.</h1>
+        <h1 id="heroTitle">Bet your friends you'll do it.</h1>
         <p class="lead reveal d2">Stake SKR on a daily habit. Prove it with two photos. Miss, and the people who kept take your share.</p>
         <div class="hero-cta reveal d3">
           <a href="#" class="btn btn-white"><i class="mdi mdi-android"></i>Download APK</a>
@@ -414,6 +503,10 @@
       </div>
     </div>
   </header>
+
+  <div class="marquee" aria-hidden="true"><div class="marquee-track" id="marquee">
+    <span>VERIFIED · DAY 3 · 9:41</span><span>IRON WEEK · 7 OF 7</span><span>HYDRA 14 · SETTLED</span><span>STRUM DAILY · SURVIVED</span><span>CLAIMED · 1,186 SKR</span><span>REMATCH · COMEBACK</span>
+  </div></div>
 
   <!-- ONE IDEA -->
   <section class="idea">
@@ -530,8 +623,8 @@
         <h2 class="reveal d1">Free pools. The catch is you have to last.</h2>
         <p class="body reveal d2">Creators and communities fund a pool. Joining is free. Prove every day and you split the pot with everyone still standing. Miss once and you're out.</p>
         <div class="bounty-row reveal d3">
-          <div class="bounty b-sky"><div class="t"><i class="mdi mdi-bottle-soda-outline"></i>Hydrate Week</div><div><div class="v">50,000 SKR</div><div class="s">Drift · closes in 5h</div></div><i class="mdi mdi-bottle-soda-outline big"></i></div>
-          <div class="bounty b-amber"><div class="t"><i class="mdi mdi-guitar-acoustic"></i>Sol Strings</div><div><div class="v">8,000 SKR</div><div class="s">@riffs · closes in 9h</div></div><i class="mdi mdi-guitar-acoustic big"></i></div>
+          <div class="bounty b-sky"><div class="t"><i class="mdi mdi-bottle-soda-outline"></i>Hydrate Week</div><div><div class="v"><span data-count="50000">50,000</span> SKR</div><div class="s">Drift · closes in 5h</div></div><i class="mdi mdi-bottle-soda-outline big"></i></div>
+          <div class="bounty b-amber"><div class="t"><i class="mdi mdi-guitar-acoustic"></i>Sol Strings</div><div><div class="v"><span data-count="8000">8,000</span> SKR</div><div class="s">@riffs · closes in 9h</div></div><i class="mdi mdi-guitar-acoustic big"></i></div>
         </div>
       </div>
       <div class="split-media reveal d1" style="--halo:rgba(58,163,242,.18)">
@@ -543,8 +636,8 @@
   <!-- THE RULE -->
   <section class="rule">
     <div class="wrap">
-      <h2 class="reveal">You can buy how you look.</h2>
-      <h2 class="reveal d1 lime">You can never buy what you've kept.</h2>
+      <h2 class="scrub">You can buy how you look.</h2>
+      <h2 class="scrub lime">You can never buy what you've kept.</h2>
       <div class="stamp reveal d2">
         <span class="brand-mark"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M54 45L78 76" fill="none" stroke="#F2F0EA" stroke-width="16" stroke-linecap="round"/><path d="M23 44L40 60L78 24" fill="none" stroke="#C5F25C" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/><path d="M23 24V76" fill="none" stroke="#F2F0EA" stroke-width="16" stroke-linecap="round"/></svg></span>
         <b>KEPT</b><span class="mono">VERIFIED · DAY 3 · 9:41</span>
@@ -601,7 +694,8 @@
   </section>
 
   <!-- CTA -->
-  <section class="cta">
+  <section class="cta" id="cta">
+    <div class="rain" id="rain" aria-hidden="true"></div>
     <div class="glow glow-a" style="left:50%;margin-left:-310px;top:-120px"></div>
     <div class="wrap" style="position:relative">
       <img class="keeper-sm reveal" src="/assets/keeper/happy.svg" alt="">
@@ -701,6 +795,171 @@
       document.querySelectorAll('.gallery-nav button').forEach(function (b) {
         b.addEventListener('click', function () { g.scrollBy({ left: +b.dataset.dir * 262 * 2, behavior: 'smooth' }); });
       });
+
+      /* ================= EXPERIENCE LAYER ================= */
+      var fine = window.matchMedia('(pointer: fine)').matches;
+
+      // Intro: K draws itself, then lifts away (once per session)
+      var seen = false; try { seen = sessionStorage.getItem('kept-intro') === '1'; } catch (e) {}
+      var title = document.getElementById('heroTitle');
+      title.innerHTML = title.textContent.split(' ').map(function (w, i) {
+        return '<span class="w' + (w === 'it.' || w === 'do' ? ' hl' : '') + '" style="animation-delay:' + (i * 0.08) + 's">' + w + '</span>';
+      }).join(' ');
+      function startHero() { title.classList.add('go'); }
+      if (!reduce && !seen) {
+        var intro = document.createElement('div');
+        intro.className = 'intro';
+        intro.innerHTML = '<svg viewBox="0 0 100 100"><path d="M54 45L78 76" fill="none" stroke="#F2F0EA" stroke-width="13" stroke-linecap="round"/><path d="M23 44L40 60L78 24" fill="none" stroke="#C5F25C" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/><path d="M23 24V76" fill="none" stroke="#F2F0EA" stroke-width="13" stroke-linecap="round"/></svg><div class="word">KEPT</div><div class="sub">KEEP YOUR WORD</div>';
+        document.body.appendChild(intro);
+        document.documentElement.style.overflow = 'hidden';
+        setTimeout(function () {
+          intro.classList.add('done'); document.documentElement.style.overflow = '';
+          startHero(); setTimeout(function () { intro.remove(); }, 700);
+        }, 1700);
+        try { sessionStorage.setItem('kept-intro', '1'); } catch (e) {}
+      } else { startHero(); }
+
+      // Coin burst
+      function burst(x, y, n) {
+        if (reduce) return;
+        for (var i = 0; i < (n || 16); i++) {
+          var c = document.createElement('div'); c.className = 'coin';
+          c.style.left = (x - 11) + 'px'; c.style.top = (y - 11) + 'px';
+          document.body.appendChild(c);
+          var a = Math.random() * Math.PI * 2, d = 80 + Math.random() * 160;
+          c.animate([
+            { transform: 'translate(0,0) scale(.4)', opacity: 1 },
+            { transform: 'translate(' + Math.cos(a) * d + 'px,' + (Math.sin(a) * d - 60) + 'px) scale(1)', opacity: 1, offset: .55 },
+            { transform: 'translate(' + Math.cos(a) * d * 1.1 + 'px,' + (Math.sin(a) * d + 220) + 'px) scale(.8)', opacity: 0 }
+          ], { duration: 1100 + Math.random() * 400, easing: 'cubic-bezier(.15,.7,.3,1)' }).onfinish = (function (el) { return function () { el.remove(); }; })(c);
+        }
+      }
+      document.querySelectorAll('.btn-lime, .btn-white').forEach(function (b) {
+        b.addEventListener('click', function (e) { if (b.getAttribute('href') === '#') e.preventDefault(); var r = b.getBoundingClientRect(); burst(r.left + r.width / 2, r.top + r.height / 2, 18); });
+      });
+
+      // Magnetic buttons
+      if (fine && !reduce) document.querySelectorAll('.btn').forEach(function (b) {
+        b.addEventListener('mousemove', function (e) {
+          var r = b.getBoundingClientRect();
+          b.style.translate = ((e.clientX - r.left - r.width / 2) * .25) + 'px ' + ((e.clientY - r.top - r.height / 2) * .35) + 'px';
+        });
+        b.addEventListener('mouseleave', function () { b.style.translate = ''; });
+      });
+
+      // Hover tilt + shine on cards
+      if (fine && !reduce) document.querySelectorAll('.step, .seek, .bounty, .hp-card, .grid-card').forEach(function (c) {
+        c.classList.add('tiltable');
+        var sh = document.createElement('span'); sh.className = 'shine'; c.appendChild(sh);
+        c.addEventListener('mousemove', function (e) {
+          if (c.classList.contains('reveal') && !c.classList.contains('in')) return;
+          var r = c.getBoundingClientRect(), px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height;
+          c.style.transform = 'perspective(900px) rotateX(' + ((.5 - py) * 7) + 'deg) rotateY(' + ((px - .5) * 9) + 'deg) translateY(-4px)';
+          c.style.setProperty('--mx', px * 100 + '%'); c.style.setProperty('--my', py * 100 + '%');
+        });
+        c.addEventListener('mouseleave', function () { c.style.transform = ''; });
+      });
+
+      // Count-up numbers
+      var cio = new IntersectionObserver(function (es) {
+        es.forEach(function (e) {
+          if (!e.isIntersecting) return; cio.unobserve(e.target);
+          var el = e.target, to = +el.dataset.count, st = performance.now();
+          if (reduce) return;
+          (function f(n) { var p = Math.min(1, (n - st) / 1400), v = Math.round(to * (1 - Math.pow(1 - p, 3)));
+            el.textContent = v.toLocaleString('en-US'); if (p < 1) requestAnimationFrame(f); })(st);
+        });
+      }, { threshold: .6 });
+      document.querySelectorAll('[data-count]').forEach(function (el) { el.textContent = '0'; cio.observe(el); });
+
+      // Scrub words
+      var scrubs = [].slice.call(document.querySelectorAll('.scrub'));
+      scrubs.forEach(function (h) { h.innerHTML = h.textContent.split(' ').map(function (w) { return '<span class="sw">' + w + '</span>'; }).join(' '); });
+
+      // Marquee: duplicate track for a seamless loop
+      var mq = document.getElementById('marquee'); mq.innerHTML += mq.innerHTML;
+
+      // CTA coin rain
+      var rain = document.getElementById('rain');
+      if (!reduce) for (var r = 0; r < 18; r++) {
+        var d = document.createElement('i');
+        d.style.left = ((r * 53 + 17) % 100) + '%';
+        d.style.animationDuration = (5 + (r % 5) * 1.3) + 's';
+        d.style.animationDelay = (-(r * .9) % 7) + 's';
+        var sz = 12 + (r % 3) * 6; d.style.width = d.style.height = sz + 'px';
+        rain.appendChild(d);
+      }
+
+      // Pointer: spotlight + hero parallax
+      var mx = 0, my = 0, stage = document.querySelector('.stage');
+      var layers = stage ? [].slice.call(stage.querySelectorAll('.orb, .bubble, .chip, .keeper')).map(function (el, i) {
+        return { el: el, depth: el.classList.contains('keeper') ? 8 : el.classList.contains('orb') ? 26 + (i % 3) * 10 : 16 };
+      }) : [];
+      var spot = document.getElementById('spot');
+      if (fine && !reduce) window.addEventListener('mousemove', function (e) {
+        document.body.classList.add('has-pointer');
+        spot.style.transform = 'translate(' + e.clientX + 'px,' + e.clientY + 'px)';
+        mx = e.clientX / innerWidth - .5; my = e.clientY / innerHeight - .5;
+        layers.forEach(function (l) { l.el.style.translate = (-mx * l.depth) + 'px ' + (-my * l.depth) + 'px'; });
+      });
+
+      // Gallery: drag to scroll + coverflow scale
+      var gx = null, gs = 0, moved = false;
+      g.addEventListener('pointerdown', function (e) { if (e.pointerType !== 'mouse') return; gx = e.clientX; gs = g.scrollLeft; moved = false; g.classList.add('drag'); });
+      window.addEventListener('pointermove', function (e) { if (gx === null) return; var dx = e.clientX - gx; if (Math.abs(dx) > 3) moved = true; g.scrollLeft = gs - dx; });
+      window.addEventListener('pointerup', function () { gx = null; g.classList.remove('drag'); });
+      var figs = [].slice.call(g.querySelectorAll('figure'));
+      function cover() {
+        var c = innerWidth / 2;
+        figs.forEach(function (f) {
+          var r = f.getBoundingClientRect(), d = Math.max(-1, Math.min(1, (r.left + r.width / 2 - c) / (innerWidth * .6)));
+          f.style.transform = reduce ? '' : 'perspective(1000px) rotateY(' + (-d * 18) + 'deg) scale(' + (1 - Math.abs(d) * .12) + ')';
+          f.style.opacity = 1 - Math.abs(d) * .45;
+        });
+      }
+      g.addEventListener('scroll', function () { requestAnimationFrame(cover); }, { passive: true });
+
+      // Scroll-driven frame: progress bar, 3D phones, scrubbed headlines
+      var prog = document.getElementById('progress');
+      var phones = [].slice.call(document.querySelectorAll('.steps .phone, .split-media .phone, .rule-avatars .phone'));
+      var halos = [].slice.call(document.querySelectorAll('.split-media'));
+      var ticking = false;
+      function frame() {
+        ticking = false;
+        var h = document.documentElement.scrollHeight - innerHeight;
+        prog.style.transform = 'scaleX(' + (h > 0 ? scrollY / h : 0) + ')';
+        if (reduce) return;
+        var vh = innerHeight;
+        phones.forEach(function (p, i) {
+          var r = p.getBoundingClientRect(); if (r.bottom < -200 || r.top > vh + 200) return;
+          var t = (r.top + r.height / 2 - vh / 2) / vh;
+          var side = p.closest('.rule-avatars') ? (i % 2 ? 1 : -1) : 0;
+          p.style.transform = 'perspective(1200px) rotateX(' + (t * 14) + 'deg) rotateY(' + (side * t * 16) + 'deg) translateY(' + (t * 40) + 'px)';
+        });
+        halos.forEach(function (m) {
+          var r = m.getBoundingClientRect(), t = (r.top + r.height / 2 - vh / 2) / vh;
+          m.style.setProperty('--hs', 1 + (1 - Math.min(1, Math.abs(t))) * .25);
+        });
+        scrubs.forEach(function (sc) {
+          var r = sc.getBoundingClientRect(), p = Math.max(0, Math.min(1, (vh * .85 - r.top) / (vh * .45)));
+          var ws = sc.children, n = Math.round(p * ws.length);
+          for (var k = 0; k < ws.length; k++) ws[k].classList.toggle('lit', k < n);
+        });
+      }
+      function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(frame); } }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', function () { onScroll(); cover(); });
+      frame(); cover();
+
+      // HP card reacts to damage / heal
+      var hpCard = document.getElementById('hpCard'), lastHp = 100;
+      var _paint = paint;
+      paint = function (hp) {
+        _paint(hp);
+        hpCard.classList.remove('hit', 'heal'); void hpCard.offsetWidth;
+        if (hp < lastHp) hpCard.classList.add('hit'); else if (hp > lastHp) hpCard.classList.add('heal');
+        lastHp = hp;
+      };
     })();
   </script>
 </body>
