@@ -1,0 +1,30 @@
+@font-face{font-family:'KeptIcons';src:url('/assets/fonts/kept-icons.woff') format('woff');font-display:block}
+.mdi::before{display:inline-block;font:normal normal normal 24px/1 'KeptIcons';font-size:inherit;line-height:inherit;-webkit-font-smoothing:antialiased}
+.mdi-alpha-x::before{content:"\F0B05"}
+.mdi-android::before{content:"\F0032"}
+.mdi-arrow-left::before{content:"\F004D"}
+.mdi-arrow-right::before{content:"\F0054"}
+.mdi-bell-ring-outline::before{content:"\F009F"}
+.mdi-book-open-variant::before{content:"\F14F7"}
+.mdi-bottle-soda-outline::before{content:"\F1072"}
+.mdi-camera::before{content:"\F0100"}
+.mdi-camera-lock-outline::before{content:"\F1A15"}
+.mdi-cards-playing-outline::before{content:"\F063A"}
+.mdi-cellphone-key::before{content:"\F094E"}
+.mdi-check-bold::before{content:"\F0E1E"}
+.mdi-circle-half-full::before{content:"\F1396"}
+.mdi-close-thick::before{content:"\F1398"}
+.mdi-dumbbell::before{content:"\F01E6"}
+.mdi-eye-outline::before{content:"\F06D0"}
+.mdi-feather::before{content:"\F06D3"}
+.mdi-fire::before{content:"\F0238"}
+.mdi-github::before{content:"\F02A4"}
+.mdi-guitar-acoustic::before{content:"\F0771"}
+.mdi-lock-check-outline::before{content:"\F16A8"}
+.mdi-sack::before{content:"\F0D2E"}
+.mdi-shield-check::before{content:"\F0565"}
+.mdi-shoe-sneaker::before{content:"\F15C8"}
+.mdi-thumb-up::before{content:"\F0513"}
+.mdi-timer-sand::before{content:"\F051F"}
+@font-face{font-family:'Geist';font-style:normal;font-weight:100 900;font-display:swap;src:url('/assets/fonts/geist-latin.woff2') format('woff2')}
+@font-face{font-family:'Geist Mono';font-style:normal;font-weight:100 900;font-display:swap;src:url('/assets/fonts/geist-mono-latin.woff2') format('woff2')}

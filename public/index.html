@@ -3,463 +3,705 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KEPT - v12</title>
-  <meta name="description" content="Keep your word. Level up. Or everyone sees. A real-life level-up game on Solana Mobile.">
-  <meta property="og:title" content="KEPT - A real-life level-up game">
-  <meta property="og:description" content="Keep your word. Level up. Or everyone sees. A real-life level-up game on Solana Mobile.">
-  <meta property="og:image" content="https://example.com/og-image-placeholder.jpg">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230B0B0C'/%3E%3Ccircle cx='16' cy='16' r='10' fill='none' stroke='%23F5B94A' stroke-width='3'/%3E%3C/svg%3E">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <title>KEPT — Bet your friends you'll do it</title>
+  <meta name="description" content="Stake SKR on a daily habit. Prove it with two photos. Miss, and the people who kept take your share. A real-life level-up game on Solana Mobile.">
+  <meta name="theme-color" content="#0B0B0C">
+  <meta property="og:title" content="KEPT — Bet your friends you'll do it">
+  <meta property="og:description" content="Stake SKR on a daily habit. Prove it with two photos. Miss, and the people who kept take your share.">
+  <meta property="og:image" content="/assets/screens/welcome.webp">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%23131313'/%3E%3Cpath d='M54 45L78 76' fill='none' stroke='%23F2F0EA' stroke-width='15' stroke-linecap='round'/%3E%3Cpath d='M23 44L40 60L78 24' fill='none' stroke='%23C5F25C' stroke-width='15' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M23 24V76' fill='none' stroke='%23F2F0EA' stroke-width='15' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="preload" href="/assets/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/fonts.css">
   <style>
     :root {
       --bg: #0B0B0C;
-      --text: #FFFFFF;
-      --secondary: #6E6E73;
-      --hairline: #2A2A2E;
-      --gold: #F5B94A;
-      --font-inter: 'Inter', sans-serif;
+      --surface: #131313;
+      --card: #1C1C1C;
+      --card-2: #222222;
+      --line: #2A2A2A;
+      --text: #F2F0EA;
+      --muted: #8A8A8A;
+      --dim: #6A6A6A;
+      --lime: #C5F25C;
+      --lime-hi: #DAFF80;
+      --lime-lo: #B4E53F;
+      --red: #F87171;
+      --orange: #FB923C;
+      --violet: #A78BFA;
+      --sky: #3AA3F2;
+      --pink: #EF6BB0;
+      --sans: 'Geist', system-ui, -apple-system, sans-serif;
+      --mono: 'Geist Mono', ui-monospace, monospace;
+      --ease: cubic-bezier(.22, 1, .36, 1);
     }
-    
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
     body {
-      background-color: var(--bg);
+      background: var(--bg);
       color: var(--text);
-      font-family: var(--font-inter);
+      font-family: var(--sans);
+      letter-spacing: -.2px;
+      line-height: 1.5;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-      line-height: 1.6;
       overflow-x: hidden;
     }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    .wrap { max-width: 1160px; margin: 0 auto; padding: 0 20px; }
+    .mono { font-family: var(--mono); }
+    .eyebrow {
+      font-family: var(--mono); font-size: 12px; font-weight: 600;
+      letter-spacing: 1.8px; text-transform: uppercase; color: var(--lime);
+    }
+    .lime { color: var(--lime); }
 
-    .container {
-      max-width: 720px;
-      margin: 0 auto;
-      padding: 0 16px;
-    }
-
-    section {
-      padding: 96px 0;
-      border-bottom: 1px solid var(--hairline);
-    }
-    
-    @media (min-width: 768px) {
-      section {
-        padding: 128px 0;
-      }
-    }
-
-    section:last-child {
-      border-bottom: none;
-    }
-
-    /* TYPOGRAPHY */
-    .hero-title {
-      font-size: 40px;
-      font-weight: 600;
-      letter-spacing: -0.02em;
-      line-height: 1.1;
-      margin-bottom: 24px;
-    }
-
-    @media (min-width: 768px) {
-      .hero-title {
-        font-size: 64px;
-      }
-    }
-
-    .hero-subtitle {
-      font-size: 24px;
-      font-weight: 500;
-      margin-bottom: 12px;
-    }
-    
-    .hero-desc {
-      font-size: 16px;
-      font-weight: 400;
-      color: var(--secondary);
-      margin-bottom: 48px;
-    }
-
-    h2 {
-      font-size: 24px;
-      font-weight: 600;
-      margin-bottom: 24px;
-    }
-
-    p {
-      font-size: 16px;
-      font-weight: 400;
-      margin-bottom: 16px;
-    }
-    
-    p:last-child {
-      margin-bottom: 0;
-    }
-
-    .caption {
-      font-size: 13px;
-      color: var(--secondary);
-      margin-top: 16px;
-    }
-
-    .text-gold {
-      color: var(--gold);
-    }
-
-    /* BUTTONS */
-    .btn-group {
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-
+    /* ---------- Buttons ---------- */
     .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 12px 24px;
-      font-size: 16px;
-      font-weight: 500;
-      text-decoration: none;
-      color: var(--text);
-      background: transparent;
-      border-radius: 2px;
-      transition: all 0.2s ease;
-      cursor: pointer;
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      height: 54px; padding: 0 26px; border-radius: 27px;
+      font-size: 17px; font-weight: 600; letter-spacing: -.3px; cursor: pointer;
+      transition: transform .15s var(--ease), filter .2s;
+      white-space: nowrap;
+    }
+    .btn i { font-size: 20px; }
+    .btn:hover { filter: brightness(1.06); }
+    .btn:active { transform: scale(.96); }
+    .btn-lime {
+      background: linear-gradient(180deg, var(--lime-hi), var(--lime-lo)); color: #131313;
+      box-shadow: inset 0 1.5px 0 rgba(255,255,255,.65), inset 0 -3px 0 rgba(0,0,0,.16), 0 12px 30px rgba(197,242,92,.22);
+    }
+    .btn-white {
+      background: linear-gradient(180deg, #FFFFFF, #E9E9E9); color: #131313;
+      box-shadow: inset 0 -3px 0 rgba(0,0,0,.10), 0 10px 24px rgba(0,0,0,.3);
+    }
+    .btn-dark { background: var(--card-2); color: #fff; box-shadow: inset 0 0 0 1px rgba(255,255,255,.08); }
+    .btn-sm { height: 42px; padding: 0 18px; font-size: 15px; border-radius: 21px; }
+
+    /* ---------- Chips ---------- */
+    .chip {
+      display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 13px;
+      border-radius: 17px; font-size: 14px; font-weight: 600; white-space: nowrap;
+    }
+    .chip i { font-size: 16px; }
+    .chip-lime { background: rgba(197,242,92,.14); color: var(--lime); }
+    .chip-red { background: rgba(248,113,113,.14); color: var(--red); }
+    .chip-vio { background: rgba(167,139,250,.16); color: var(--violet); }
+    .chip-ora { background: rgba(251,146,60,.16); color: var(--orange); }
+    .chip-dark { background: #2A2A2A; color: #fff; box-shadow: inset 0 0 0 1px rgba(255,255,255,.1); }
+    .chip-white { background: #fff; color: #131313; box-shadow: 0 8px 20px rgba(0,0,0,.4); }
+
+    /* ---------- Nav ---------- */
+    .nav {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(11,11,12,.72); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255,255,255,.05);
+    }
+    .nav .wrap { display: flex; align-items: center; gap: 28px; height: 68px; }
+    .brand { display: flex; align-items: center; gap: 10px; font-size: 22px; font-weight: 800; letter-spacing: -.8px; }
+    .brand-mark {
+      width: 36px; height: 36px; border-radius: 12px; background: var(--card-2);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.06);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .brand-mark svg { width: 25px; height: 25px; }
+    .nav-links { display: flex; gap: 26px; margin-left: auto; font-size: 15px; font-weight: 500; color: var(--muted); }
+    .nav-links a:hover { color: var(--text); }
+    .devnet {
+      height: 22px; padding: 0 8px; border-radius: 6px; background: rgba(251,146,60,.16); color: var(--orange);
+      font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: .9px;
+      display: inline-flex; align-items: center;
+    }
+    @media (max-width: 860px) { .nav-links { display: none; } .nav .btn { margin-left: auto; } }
+
+    /* ---------- Hero ---------- */
+    .hero { position: relative; overflow: hidden; padding: 72px 0 96px; }
+    .hero .wrap { display: grid; grid-template-columns: 1.05fr 1fr; align-items: center; gap: 40px; }
+    .hero h1 { font-size: clamp(46px, 7.2vw, 88px); line-height: .98; font-weight: 700; letter-spacing: clamp(-2px, -.35vw, -3.6px); margin: 18px 0 22px; }
+    .hero p.lead { font-size: clamp(18px, 2vw, 21px); color: var(--muted); max-width: 520px; line-height: 1.5; }
+    .hero-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+    .glow {
+      position: absolute; border-radius: 50%; pointer-events: none;
+      animation: drift 16s ease-in-out infinite;
+    }
+    .glow-a { width: 620px; height: 620px; left: -200px; top: -240px; background: radial-gradient(closest-side, rgba(197,242,92,.16), transparent); }
+    .glow-b { width: 560px; height: 560px; right: -180px; top: 60px; background: radial-gradient(closest-side, rgba(94,234,212,.10), transparent); animation-duration: 19s; animation-direction: reverse; }
+    @keyframes drift { 0%,100% { transform: translate(0,0) } 50% { transform: translate(40px, 30px) } }
+
+    /* Stage — Keeper with spotlight + floating objects */
+    .stage { position: relative; height: 560px; }
+    .beam {
+      position: absolute; left: 50%; top: -90px; width: 440px; margin-left: -220px; height: 640px;
+      background: linear-gradient(180deg, rgba(255,255,255,.20), rgba(255,255,255,.05) 55%, rgba(255,255,255,0));
+      clip-path: polygon(42% 0, 58% 0, 100% 100%, 0 100%); filter: blur(16px);
+      animation: beam 5s ease-in-out infinite;
+    }
+    @keyframes beam { 0%,100% { opacity: .85 } 50% { opacity: 1 } }
+    .keeper {
+      position: absolute; left: 50%; bottom: 40px; width: 330px; margin-left: -165px;
+      animation: bob 4.5s ease-in-out infinite; filter: drop-shadow(0 30px 40px rgba(0,0,0,.5));
+    }
+    @keyframes bob { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-10px) } }
+    .orb {
+      position: absolute; display: flex; align-items: center; justify-content: center;
+      box-shadow: inset 0 2px 0 rgba(255,255,255,.6), inset 0 -4px 0 rgba(0,0,0,.18), 0 14px 28px rgba(0,0,0,.45);
+      animation: float 5s ease-in-out infinite;
+    }
+    .orb i { line-height: 1; }
+    @keyframes float { 0%,100% { transform: translateY(0) rotate(var(--r, 0deg)) } 50% { transform: translateY(-14px) rotate(var(--r, 0deg)) } }
+    .o-lime   { background: linear-gradient(150deg, #E6FF9E, #A9D83C); color: #1A2600; }
+    .o-vio    { background: linear-gradient(150deg, #DCD2FF, #8E70F7); color: #160B3A; }
+    .o-sky    { background: linear-gradient(150deg, #C4E8FF, #3AA3F2); color: #03213A; }
+    .o-pink   { background: linear-gradient(150deg, #FFD3EA, #EF6BB0); color: #3A0A22; }
+    .o-amber  { background: linear-gradient(150deg, #FFE8A8, #F2B232); color: #3A2400; }
+    .o-coin   {
+      border-radius: 50% !important; background: radial-gradient(circle at 35% 30%, #E6FF9E, #A9D83C 62%); color: #1A2600;
+      box-shadow: inset 0 2px 0 rgba(255,255,255,.6), inset 0 0 0 3px rgba(255,255,255,.18), 0 5px 0 rgba(60,80,10,.9), 0 16px 26px rgba(0,0,0,.45);
+    }
+    .bubble {
+      position: absolute; background: #fff; color: #131313; font-size: 19px; font-weight: 600; line-height: 1.25;
+      padding: 14px 22px 16px; border-radius: 22px 22px 22px 6px; transform: rotate(-3deg);
+      box-shadow: 0 14px 30px rgba(0,0,0,.4); letter-spacing: -.4px; z-index: 3;
+    }
+    .stage .chip { position: absolute; z-index: 3; height: 40px; padding: 0 16px; font-size: 16px; border-radius: 20px; }
+
+    @media (max-width: 920px) {
+      .hero { padding: 40px 0 64px; }
+      .hero .wrap { grid-template-columns: 1fr; }
+      .stage { height: 480px; max-width: 460px; margin: 0 auto; width: 100%; }
+      .keeper { width: 270px; margin-left: -135px; }
+    }
+    @media (max-width: 480px) {
+      .stage { height: 420px; }
+      .keeper { width: 230px; margin-left: -115px; bottom: 30px; }
+      .bubble { font-size: 16px; }
+      .stage .chip { font-size: 14px; height: 34px; }
     }
 
-    .btn:active {
-      transform: scale(0.98);
+    /* ---------- Sections ---------- */
+    section { padding: 110px 0; position: relative; }
+    .sec-head { max-width: 680px; margin-bottom: 56px; }
+    .sec-head h2 { font-size: clamp(34px, 4.6vw, 56px); line-height: 1.02; font-weight: 700; letter-spacing: -1.8px; margin-top: 14px; }
+    .sec-head p { font-size: 19px; color: var(--muted); margin-top: 18px; max-width: 560px; }
+    .center { text-align: center; margin-left: auto; margin-right: auto; }
+    .center p { margin-left: auto; margin-right: auto; }
+    @media (max-width: 640px) { section { padding: 76px 0; } .sec-head { margin-bottom: 40px; } }
+
+    /* Phone frame */
+    .phone {
+      width: 100%; max-width: 300px; aspect-ratio: 410 / 864; padding: 2.4%;
+      background: #000; border-radius: 15% / 7.2%;
+      box-shadow: 0 0 0 1px #26262a, 0 30px 80px rgba(0,0,0,.5);
+    }
+    .phone img { width: 100%; height: 100%; object-fit: cover; border-radius: 12.4% / 5.8%; background: var(--surface); }
+
+    /* ---------- One idea ---------- */
+    .idea { border-top: 1px solid rgba(255,255,255,.05); border-bottom: 1px solid rgba(255,255,255,.05); background: var(--surface); }
+    .idea-lines { display: grid; gap: 18px; }
+    .idea-line { font-size: clamp(26px, 3.6vw, 44px); font-weight: 700; letter-spacing: -1.4px; line-height: 1.1; color: #3A3A3A; transition: color .6s var(--ease); }
+    .idea-line.on { color: var(--text); }
+    .idea-line .lime { transition: color .6s; }
+    .idea-line:not(.on) .lime { color: #3A3A3A; }
+
+    /* ---------- Steps ---------- */
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+    .step {
+      background: var(--card); border-radius: 30px; padding: 30px 28px 0; overflow: hidden;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.05); display: flex; flex-direction: column;
+    }
+    .step-top { display: flex; align-items: center; gap: 12px; }
+    .tile { width: 52px; height: 52px; border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 28px; flex: none;
+      box-shadow: inset 0 2px 0 rgba(255,255,255,.6), inset 0 -4px 0 rgba(0,0,0,.18), 0 10px 20px rgba(0,0,0,.35); }
+    .step-num { font-family: var(--mono); font-size: 12px; font-weight: 600; letter-spacing: 1.4px; color: var(--dim); }
+    .step h3 { font-size: 28px; font-weight: 700; letter-spacing: -.9px; margin-top: 22px; }
+    .step p { color: var(--muted); font-size: 16.5px; margin-top: 10px; min-height: 76px; }
+    .step .phone { margin: 30px auto -34%; max-width: 250px; }
+    @media (max-width: 960px) { .steps { grid-template-columns: 1fr; max-width: 520px; margin: 0 auto; } .step p { min-height: 0; } }
+
+    /* ---------- Split rows ---------- */
+    .split { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+    .split.rev .split-media { order: -1; }
+    .split-media { position: relative; display: flex; justify-content: center; }
+    .split-media .phone { max-width: 320px; position: relative; z-index: 1; }
+    .split-media::before {
+      content: ""; position: absolute; width: 460px; height: 460px; border-radius: 50%; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      background: radial-gradient(closest-side, var(--halo, rgba(197,242,92,.16)), transparent);
+    }
+    .split h2 { font-size: clamp(34px, 4.4vw, 54px); line-height: 1.02; font-weight: 700; letter-spacing: -1.8px; margin-top: 14px; }
+    .split p.body { font-size: 18px; color: var(--muted); margin-top: 18px; max-width: 520px; }
+    .bullets { list-style: none; margin-top: 28px; display: grid; gap: 14px; }
+    .bullets li { display: flex; gap: 14px; align-items: flex-start; font-size: 16.5px; }
+    .bullets li i { flex: none; width: 30px; height: 30px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 17px; margin-top: -3px; }
+    .bullets b { font-weight: 600; }
+    .bullets span { color: var(--muted); }
+    @media (max-width: 920px) {
+      .split { grid-template-columns: 1fr; gap: 48px; }
+      .split.rev .split-media { order: 0; }
+      .split-media .phone { max-width: 280px; }
+      .split-media::before { width: 340px; height: 340px; }
     }
 
-    .btn-primary {
-      border: 1px solid var(--gold);
-    }
+    /* HP card */
+    .hp-card { margin-top: 32px; background: var(--card); border-radius: 26px; padding: 22px 24px; box-shadow: inset 0 0 0 1px rgba(255,255,255,.05); max-width: 520px; }
+    .hp-head { display: flex; justify-content: space-between; align-items: baseline; font-size: 15px; color: var(--muted); }
+    .hp-head .mono { color: var(--text); font-size: 16px; }
+    .hp-bar { display: grid; grid-template-columns: repeat(20, 1fr); gap: 4px; margin-top: 12px; }
+    .hp-seg { height: 14px; border-radius: 4px; background: #262626; transition: background .4s, transform .4s var(--ease); }
+    .hp-note { font-size: 14px; color: var(--dim); margin-top: 12px; }
 
-    .btn-primary:hover, .btn-primary:active {
-      border-color: #ffd685;
-    }
+    /* Proof grid */
+    .grid-card { margin-top: 18px; background: var(--card); border-radius: 26px; padding: 20px 22px; box-shadow: inset 0 0 0 1px rgba(255,255,255,.05); max-width: 520px; }
+    .pg { display: grid; grid-template-columns: 74px repeat(7, 1fr); gap: 5px; align-items: center; }
+    .pg .h { font-family: var(--mono); font-size: 11px; color: var(--dim); text-align: center; }
+    .pg .n { font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 7px; }
+    .pg .av { width: 22px; height: 22px; border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #131313; }
+    .cell { aspect-ratio: 1.15; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 15px; }
+    .c-k { background: var(--lime); color: #131313; }
+    .c-m { background: rgba(248,113,113,.16); color: var(--red); box-shadow: inset 0 0 0 1.5px var(--red); }
+    .c-p { box-shadow: inset 0 0 0 1.5px #3A3A3A; color: var(--muted); }
+    .c-h { background: rgba(197,242,92,.14); color: var(--lime); box-shadow: inset 0 0 0 1.5px rgba(197,242,92,.5); }
+    .c-r { background: rgba(167,139,250,.2); color: var(--violet); }
+    .c-f { background: #232323; }
+    .legend { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 14px; font-size: 13px; color: var(--muted); }
+    .legend span { display: inline-flex; align-items: center; gap: 6px; }
+    .legend i { width: 11px; height: 11px; border-radius: 3px; display: inline-block; }
 
-    .btn-secondary {
-      border: 1px solid var(--secondary);
-      color: var(--secondary);
+    /* Keeper quote card */
+    .keeper-note {
+      display: flex; gap: 14px; align-items: center; background: #F2EFE6; color: #131313;
+      border-radius: 26px; padding: 14px 20px 14px 14px; max-width: 520px; margin-top: 28px;
+      box-shadow: 0 18px 40px rgba(0,0,0,.4);
     }
+    .keeper-note .face { width: 64px; height: 64px; border-radius: 18px; background: #131313; overflow: hidden; flex: none; display: flex; align-items: flex-start; justify-content: center; }
+    .keeper-note .face img { width: 175%; max-width: none; margin-top: -2px; }
+    .keeper-note small { font-family: var(--mono); font-size: 11px; font-weight: 600; letter-spacing: 2px; color: #555; display: flex; align-items: center; gap: 6px; }
+    .keeper-note small svg { width: 13px; height: 13px; }
+    .keeper-note div div { font-size: 18px; font-weight: 600; line-height: 1.25; margin-top: 3px; letter-spacing: -.4px; }
 
-    .btn-secondary:hover, .btn-secondary:active {
-      border-color: var(--text);
-      color: var(--text);
+    /* ---------- Bounty cards ---------- */
+    .bounty-row { display: flex; gap: 12px; margin-top: 30px; flex-wrap: wrap; }
+    .bounty {
+      flex: 1 1 200px; min-height: 150px; border-radius: 24px; padding: 18px 20px; position: relative; overflow: hidden;
+      display: flex; flex-direction: column; justify-content: space-between;
+      box-shadow: inset 0 1.5px 0 rgba(255,255,255,.35), 0 14px 30px rgba(0,0,0,.35);
     }
+    .bounty .t { font-size: 17px; font-weight: 600; display: flex; gap: 8px; align-items: center; }
+    .bounty .v { font-size: 30px; font-weight: 700; letter-spacing: -1px; }
+    .bounty .s { font-size: 14px; opacity: .75; }
+    .bounty .big { position: absolute; right: -14px; bottom: -22px; font-size: 120px; opacity: .18; transform: rotate(-14deg); }
+    .b-sky { background: linear-gradient(160deg, #3AA3F2, #155D9C); color: #fff; }
+    .b-amber { background: linear-gradient(160deg, #F2B232, #A86A0B); color: #2A1800; }
+    .b-pink { background: linear-gradient(160deg, #EF6BB0, #9C2D68); color: #fff; }
 
-    /* ANIMATIONS ON SCROLL */
-    .reveal {
-      opacity: 0;
-      transform: translateY(12px);
-      transition: opacity 400ms cubic-bezier(0.22, 1, 0.36, 1), 
-                  transform 400ms cubic-bezier(0.22, 1, 0.36, 1);
+    /* ---------- Rule ---------- */
+    .rule { text-align: center; overflow: hidden; }
+    .rule h2 { font-size: clamp(36px, 6vw, 76px); font-weight: 700; letter-spacing: -2.4px; line-height: 1.02; }
+    .rule h2 + h2 { margin-top: 8px; }
+    .rule .stamp {
+      display: inline-flex; align-items: center; gap: 10px; margin-top: 44px; height: 46px; padding: 0 18px 0 8px; border-radius: 23px;
+      background: var(--card); box-shadow: inset 0 0 0 1px rgba(255,255,255,.08);
     }
+    .rule .stamp .brand-mark { width: 32px; height: 32px; border-radius: 10px; background: var(--lime); }
+    .rule .stamp .brand-mark svg path[stroke="#F2F0EA"] { stroke: #131313; }
+    .rule .stamp .brand-mark svg path[stroke="#C5F25C"] { stroke: #131313; }
+    .rule .stamp b { font-weight: 800; letter-spacing: -.5px; }
+    .rule .stamp .mono { font-size: 13px; letter-spacing: 1.8px; color: var(--muted); }
+    .rule-avatars { display: flex; justify-content: center; gap: 18px; margin-top: 56px; flex-wrap: wrap; }
+    .rule-avatars .phone { max-width: 220px; }
 
-    .reveal.active {
-      opacity: 1;
-      transform: translateY(0);
+    /* ---------- Gallery ---------- */
+    .gallery { display: flex; gap: 22px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 10px 20px 30px; scrollbar-width: none; }
+    .gallery::-webkit-scrollbar { display: none; }
+    .gallery figure { flex: none; width: 240px; scroll-snap-align: center; }
+    .gallery .phone { max-width: none; }
+    .gallery figcaption { margin-top: 14px; font-size: 14px; color: var(--muted); text-align: center; }
+    .gallery figcaption b { font-family: var(--mono); font-size: 11px; color: var(--text); background: #222; border-radius: 6px; padding: 3px 6px; margin-right: 6px; font-weight: 600; }
+    .gallery-nav { display: flex; gap: 8px; }
+    .gallery-nav button { width: 44px; height: 44px; border-radius: 22px; border: 0; background: var(--card-2); color: #fff; font-size: 22px; cursor: pointer; box-shadow: inset 0 0 0 1px rgba(255,255,255,.08); }
+    .gallery-nav button:active { transform: scale(.94); }
+
+    /* ---------- Seeker ---------- */
+    .seeker { background: var(--surface); border-top: 1px solid rgba(255,255,255,.05); border-bottom: 1px solid rgba(255,255,255,.05); }
+    .seek-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .seek {
+      background: var(--card); border-radius: 26px; padding: 26px; box-shadow: inset 0 0 0 1px rgba(255,255,255,.05);
     }
+    .seek h3 { font-size: 21px; font-weight: 700; letter-spacing: -.6px; margin-top: 18px; }
+    .seek p { color: var(--muted); margin-top: 8px; font-size: 15.5px; }
+    .seek .stat { font-size: 40px; font-weight: 700; letter-spacing: -1.6px; color: var(--lime); }
+    .caption { font-size: 14px; color: var(--dim); margin-top: 28px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    @media (max-width: 860px) { .seek-grid { grid-template-columns: 1fr; } }
+
+    /* ---------- CTA + footer ---------- */
+    .cta { text-align: center; overflow: hidden; }
+    .cta .keeper-sm { width: 220px; margin: 0 auto -6px; animation: bob 4.5s ease-in-out infinite; filter: drop-shadow(0 24px 30px rgba(0,0,0,.5)); }
+    .cta h2 { font-size: clamp(40px, 6.4vw, 80px); font-weight: 700; letter-spacing: -2.6px; line-height: 1; margin-top: 18px; }
+    .cta p { font-size: 19px; color: var(--muted); margin-top: 18px; }
+    .cta .hero-cta { justify-content: center; }
+    footer { border-top: 1px solid rgba(255,255,255,.06); padding: 34px 0 40px; }
+    footer .wrap { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+    footer .note { color: var(--dim); font-size: 14px; }
+    footer .links { margin-left: auto; display: flex; gap: 10px; }
+    footer .links a { width: 42px; height: 42px; border-radius: 21px; background: var(--card-2); display: flex; align-items: center; justify-content: center; font-size: 20px; color: var(--muted); }
+    footer .links a:hover { color: var(--text); }
+
+    /* ---------- Reveal ---------- */
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
+    .reveal.in { opacity: 1; transform: none; }
+    .reveal.d1 { transition-delay: .08s; } .reveal.d2 { transition-delay: .16s; } .reveal.d3 { transition-delay: .24s; }
 
     @media (prefers-reduced-motion: reduce) {
-      .reveal {
-        opacity: 1;
-        transform: none;
-        transition: none;
-      }
-      .btn:active {
-        transform: none;
-      }
-    }
-
-    /* ONE IDEA */
-    .one-idea {
-      text-align: center;
-    }
-    
-    .one-idea p {
-      font-size: 20px;
-      margin-bottom: 32px;
-    }
-    
-    .one-idea p:last-child {
-      margin-bottom: 0;
-    }
-
-    /* CORNER BRACKETS */
-    .card {
-      position: relative;
-      padding: 40px 32px;
-      margin: 32px 0;
-      background: rgba(255, 255, 255, 0.02);
-    }
-
-    .bracket {
-      position: absolute;
-      width: 12px;
-      height: 12px;
-      border-color: var(--hairline);
-      border-style: solid;
-    }
-
-    .bracket-tl { top: 0; left: 0; border-width: 1px 0 0 1px; }
-    .bracket-tr { top: 0; right: 0; border-width: 1px 1px 0 0; }
-    .bracket-bl { bottom: 0; left: 0; border-width: 0 0 1px 1px; }
-    .bracket-br { bottom: 0; right: 0; border-width: 0 1px 1px 0; }
-
-    /* HP BAR */
-    .hp-container {
-      margin: 48px 0;
-    }
-
-    .hp-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-      font-family: monospace;
-      font-size: 14px;
-      color: var(--secondary);
-    }
-    
-    .hp-bar {
-      display: flex;
-      gap: 4px;
-      height: 12px;
-    }
-
-    .hp-segment {
-      flex: 1;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      background: #FFFFFF;
-      box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
-      position: relative;
-    }
-
-    .hp-segment.crack {
-      transform-origin: center;
-    }
-
-    .oaths-section.active .hp-segment.crack {
-      animation: crackFade 600ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
-      animation-delay: 400ms;
-    }
-
-    .hp-counter::after {
-      content: "100";
-    }
-
-    .oaths-section.active .hp-counter::after {
-      animation: countTick 600ms forwards;
-      animation-delay: 400ms;
-    }
-
-    @keyframes crackFade {
-      0% {
-        opacity: 1;
-        transform: scaleY(1);
-        background: #FFFFFF;
-      }
-      20% {
-        transform: scaleY(0.8) skewX(10deg);
-        background: var(--bg);
-        border-color: var(--secondary);
-        box-shadow: none;
-      }
-      100% {
-        opacity: 0.2;
-        background: transparent;
-        border-color: var(--hairline);
-        box-shadow: none;
-        transform: scaleY(1);
-      }
-    }
-
-    @keyframes countTick {
-      0%, 19.99% { content: "100"; }
-      20%, 100% { content: "80"; }
-    }
-    
-    @media (prefers-reduced-motion: reduce) {
-      .oaths-section.active .hp-segment.crack {
-        animation: none;
-        opacity: 0.2;
-        background: transparent;
-        border-color: var(--hairline);
-        box-shadow: none;
-      }
-      .oaths-section.active .hp-counter::after {
-        animation: none;
-        content: "80";
-      }
-    }
-
-    /* THE RULE */
-    .rule-section {
-      text-align: center;
-      padding: 160px 0;
-    }
-
-    .rule-line {
-      font-size: 28px;
-      font-weight: 500;
-      line-height: 1.4;
-    }
-    
-    @media (min-width: 768px) {
-      .rule-line {
-        font-size: 36px;
-      }
-    }
-
-    /* FOOTER */
-    footer {
-      padding: 48px 0 96px;
-    }
-
-    .footer-content {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    @media (min-width: 768px) {
-      .footer-content {
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-      }
-    }
-
-    .footer-text {
-      font-size: 13px;
-      color: var(--secondary);
-    }
-    
-    .footer-links {
-      display: flex;
-      gap: 16px;
-    }
-
-    .footer-links a {
-      color: var(--secondary);
-      text-decoration: none;
-      font-size: 13px;
-      transition: color 0.2s;
-    }
-
-    .footer-links a:hover {
-      color: var(--text);
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      .reveal { opacity: 1; transform: none; }
+      html { scroll-behavior: auto; }
     }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    
-    <!-- 1. HERO -->
-    <section class="reveal">
-      <h1 class="hero-title">KEPT</h1>
-      <div class="hero-subtitle">Keep your word. Level up. Or everyone sees.</div>
-      <div class="hero-desc">A real-life level-up game on Solana Mobile.</div>
-      
-      <div class="btn-group">
-        <a href="#" class="btn btn-primary">Download APK</a>
-        <a href="#" class="btn btn-secondary">View source</a>
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="wrap">
+      <a href="#" class="brand" aria-label="KEPT home">
+        <span class="brand-mark"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M54 45L78 76" fill="none" stroke="#F2F0EA" stroke-width="16" stroke-linecap="round"/><path d="M23 44L40 60L78 24" fill="none" stroke="#C5F25C" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/><path d="M23 24V76" fill="none" stroke="#F2F0EA" stroke-width="16" stroke-linecap="round"/></svg></span>
+        KEPT
+        <span class="devnet">DEVNET</span>
+      </a>
+      <div class="nav-links">
+        <a href="#how">How it works</a>
+        <a href="#oaths">Oaths</a>
+        <a href="#bounties">Bounties</a>
+        <a href="#screens">Screens</a>
+        <a href="#seeker">Seeker</a>
       </div>
-    </section>
+      <a href="#" class="btn btn-lime btn-sm"><i class="mdi mdi-android"></i>Download APK</a>
+    </div>
+  </nav>
 
-    <!-- 2. THE ONE IDEA -->
-    <section class="reveal one-idea">
-      <p>You write your own quests.</p>
-      <p>Your camera proves you did them. The photo never leaves your phone.</p>
-      <p>Your record lives on Solana. Nobody can fake a streak.</p>
-    </section>
+  <!-- HERO -->
+  <header class="hero">
+    <div class="glow glow-a"></div>
+    <div class="glow glow-b"></div>
+    <div class="wrap">
+      <div>
+        <div class="eyebrow reveal">A real-life level-up game · Solana Mobile</div>
+        <h1 class="reveal d1">Bet your friends you'll do it.</h1>
+        <p class="lead reveal d2">Stake SKR on a daily habit. Prove it with two photos. Miss, and the people who kept take your share.</p>
+        <div class="hero-cta reveal d3">
+          <a href="#" class="btn btn-white"><i class="mdi mdi-android"></i>Download APK</a>
+          <a href="#" class="btn btn-dark"><i class="mdi mdi-github"></i>View source</a>
+        </div>
+        <div class="hero-meta reveal d3">
+          <span class="chip chip-lime"><i class="mdi mdi-shield-check"></i>Built for Seeker</span>
+          <span class="chip chip-vio"><i class="mdi mdi-camera-lock-outline"></i>Photos stay on your phone</span>
+          <span class="chip chip-ora"><i class="mdi mdi-fire"></i>Nobody can fake a streak</span>
+        </div>
+      </div>
 
-    <!-- 3. OATHS -->
-    <section class="reveal oaths-section" id="oaths">
-      <h2>Swear it with your people.</h2>
-      
-      <div class="card">
-        <div class="bracket bracket-tl"></div>
-        <div class="bracket bracket-tr"></div>
-        <div class="bracket bracket-bl"></div>
-        <div class="bracket bracket-br"></div>
-        
-        <p>Up to four Keepers share one health bar. Every day someone misses, the group loses 20. At zero the Oath breaks and everyone carries the mark. You each stake Soul you earned — hold the Oath and it comes back, break it and it burns. Nobody wins it.</p>
-        
-        <div class="hp-container">
-          <div class="hp-header">
-            <span>OATH INTEGRITY</span>
-            <span class="hp-counter">HP </span>
+      <div class="stage reveal d2" aria-hidden="true">
+        <div class="beam"></div>
+        <div class="orb o-lime"  style="left:6%;top:6%;width:84px;height:84px;border-radius:24px;--r:-12deg;font-size:42px"><i class="mdi mdi-dumbbell"></i></div>
+        <div class="orb o-vio"   style="right:9%;top:10%;width:74px;height:74px;border-radius:21px;--r:10deg;font-size:36px;animation-delay:-1.2s"><i class="mdi mdi-book-open-variant"></i></div>
+        <div class="orb o-sky"   style="left:2%;top:52%;width:62px;height:62px;border-radius:18px;--r:8deg;font-size:30px;animation-delay:-2.1s"><i class="mdi mdi-bottle-soda-outline"></i></div>
+        <div class="orb o-pink"  style="right:3%;top:58%;width:58px;height:58px;border-radius:17px;--r:-10deg;font-size:29px;animation-delay:-3s"><i class="mdi mdi-shoe-sneaker"></i></div>
+        <div class="orb o-coin"  style="right:16%;top:36%;width:60px;height:60px;font-size:28px;animation-delay:-.6s"><i class="mdi mdi-sack"></i></div>
+        <div class="orb o-amber" style="left:20%;top:80%;width:50px;height:50px;border-radius:15px;--r:12deg;font-size:25px;animation-delay:-1.7s"><i class="mdi mdi-thumb-up"></i></div>
+        <div class="bubble" style="left:0;top:24%">Step up.<br>Place your word.</div>
+        <img class="keeper" src="/assets/keeper/wave.svg" alt="">
+        <span class="chip chip-lime" style="left:8%;bottom:18%;transform:rotate(-4deg);background:#2b3517"><i class="mdi mdi-sack"></i>1,000 SKR pot</span>
+        <span class="chip chip-dark" style="right:4%;bottom:24%;transform:rotate(4deg)"><i class="mdi mdi-cards-playing-outline"></i>3-to-1 on you</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ONE IDEA -->
+  <section class="idea">
+    <div class="wrap">
+      <div class="idea-lines">
+        <div class="idea-line">You write your own quests.</div>
+        <div class="idea-line">Your camera proves you did them. <span class="lime">The photo never leaves your phone.</span></div>
+        <div class="idea-line">Your record lives on Solana. <span class="lime">Nobody can fake a streak.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="eyebrow">How it works</div>
+        <h2>Swear it. Prove it. Get paid for keeping it.</h2>
+      </div>
+      <div class="steps">
+        <article class="step reveal">
+          <div class="step-top"><div class="tile o-vio"><i class="mdi mdi-feather"></i></div><span class="step-num">01 · SWEAR</span></div>
+          <h3>Write the Oath.</h3>
+          <p>Pick a goal, the object you'll show, how many days, and what you stake. Solo, or with up to four Keepers.</p>
+          <div class="phone"><img src="/assets/screens/create.webp" alt="Create an Oath screen" loading="lazy"></div>
+        </article>
+        <article class="step reveal d1">
+          <div class="step-top"><div class="tile o-sky"><i class="mdi mdi-camera"></i></div><span class="step-num">02 · PROVE</span></div>
+          <h3>Two photos a day.</h3>
+          <p>Show the object plus a random hand sign before the challenge expires. Checked on-device. The photo never leaves your phone.</p>
+          <div class="phone"><img src="/assets/screens/proof.webp" alt="Daily proof camera screen" loading="lazy"></div>
+        </article>
+        <article class="step reveal d2">
+          <div class="step-top"><div class="tile o-lime"><i class="mdi mdi-sack"></i></div><span class="step-num">03 · SETTLE</span></div>
+          <h3>Keep it, take the pot.</h3>
+          <p>Every miss costs SKR. When the Oath ends, the people who kept split what the people who missed left behind.</p>
+          <div class="phone"><img src="/assets/screens/result.webp" alt="Oath result screen" loading="lazy"></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- OATHS -->
+  <section id="oaths" style="padding-top:40px">
+    <div class="wrap split">
+      <div>
+        <div class="eyebrow reveal">Oaths</div>
+        <h2 class="reveal d1">Swear it with your people.</h2>
+        <p class="body reveal d2">Up to four Keepers share one health bar. Every day someone misses, the group loses 20. At zero the Oath breaks and everyone carries the mark. Hold it and your stake comes back with interest. Nobody wins it alone.</p>
+
+        <div class="hp-card reveal d2" id="hpCard">
+          <div class="hp-head"><span>Oath HP</span><span class="mono" id="hpVal">100 / 100</span></div>
+          <div class="hp-bar" id="hpBar"></div>
+          <div class="hp-note" id="hpNote">Day 1. Everyone's clean.</div>
+        </div>
+
+        <div class="grid-card reveal d3">
+          <div class="pg">
+            <span></span><span class="h">1</span><span class="h">2</span><span class="h">3</span><span class="h">4</span><span class="h">5</span><span class="h">6</span><span class="h">7</span>
+            <span class="n"><span class="av" style="background:#C5F25C">Y</span>You</span>
+            <span class="cell c-k"><i class="mdi mdi-check-bold"></i></span><span class="cell c-k"><i class="mdi mdi-check-bold"></i></span><span class="cell c-h"><i class="mdi mdi-circle-half-full"></i></span><span class="cell c-f"></span><span class="cell c-f"></span><span class="cell c-f"></span><span class="cell c-f"></span>
+            <span class="n"><span class="av" style="background:#F9A8D4">R</span>Riya</span>
+            <span class="cell c-k"><i class="mdi mdi-check-bold"></i></span><span class="cell c-k"><i class="mdi mdi-check-bold"></i></span><span class="cell c-k"><i class="mdi mdi-check-bold"></i></span><span class="cell c-f"></span><span class="cell c-f"></span><span class="cell c-f"></span><span class="cell c-f"></span>
+            <span class="n"><span class="av" style="background:#FDE68A">A</span>Arjun</span>
+            <span class="cell c-k"><i class="mdi mdi-check-bold"></i></span><span class="cell c-m"><i class="mdi mdi-close-thick"></i></span><span class="cell c-p"><i class="mdi mdi-timer-sand"></i></span><span class="cell c-f"></span><span class="cell c-f"></span><span class="cell c-f"></span><span class="cell c-f"></span>
+            <span class="n"><span class="av" style="background:#93C5FD">D</span>Dev</span>
+            <span class="cell c-k"><i class="mdi mdi-check-bold"></i></span><span class="cell c-k"><i class="mdi mdi-check-bold"></i></span><span class="cell c-r"><i class="mdi mdi-eye-outline"></i></span><span class="cell c-f"></span><span class="cell c-f"></span><span class="cell c-f"></span><span class="cell c-f"></span>
           </div>
-          <div class="hp-bar">
-            <div class="hp-segment"></div>
-            <div class="hp-segment"></div>
-            <div class="hp-segment"></div>
-            <div class="hp-segment"></div>
-            <div class="hp-segment crack"></div>
+          <div class="legend">
+            <span><i style="background:#C5F25C"></i>kept</span>
+            <span><i style="box-shadow:inset 0 0 0 1.5px #F87171"></i>missed</span>
+            <span><i style="box-shadow:inset 0 0 0 1.5px #3A3A3A"></i>pending</span>
+            <span><i style="background:#6D5BA8"></i>in review</span>
           </div>
         </div>
       </div>
-    </section>
+      <div class="split-media reveal d1">
+        <div class="phone"><img src="/assets/screens/oath.webp" alt="Active Oath screen with shared HP and proof grid" loading="lazy"></div>
+      </div>
+    </div>
+  </section>
 
-    <!-- 4. THE RULE -->
-    <section class="reveal rule-section">
-      <div class="rule-line">You can buy how you look.</div>
-      <div class="rule-line text-gold">You can never buy what you've kept.</div>
-    </section>
+  <!-- THE KEEPER -->
+  <section>
+    <div class="wrap split rev">
+      <div>
+        <div class="eyebrow reveal">The Keeper</div>
+        <h2 class="reveal d1">Someone's always watching the table.</h2>
+        <p class="body reveal d2">The Keeper runs the game. Sets the odds, calls out who's slipping, and keeps your record honest. Group review settles the close calls: when a photo fails three times, your Keepers vote.</p>
+        <div class="keeper-note reveal d2">
+          <div class="face"><img src="/assets/keeper/shades.svg" alt=""></div>
+          <div>
+            <small><svg viewBox="0 0 100 100"><path d="M54 45L78 76" fill="none" stroke="#131313" stroke-width="16" stroke-linecap="round"/><path d="M23 44L40 60L78 24" fill="none" stroke="#131313" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/><path d="M23 24V76" fill="none" stroke="#131313" stroke-width="16" stroke-linecap="round"/></svg>THE KEEPER</small>
+            <div id="keeperLine">Arjun's still on the couch. 3-to-1 he misses.</div>
+          </div>
+        </div>
+        <ul class="bullets reveal d3">
+          <li><i class="chip-ora mdi mdi-cards-playing-outline"></i><div><b>Live odds.</b> <span>Every Keeper gets a line. Bet on yourself.</span></div></li>
+          <li><i class="chip-vio mdi mdi-eye-outline"></i><div><b>Group review.</b> <span>Your vote counts when a proof is disputed.</span></div></li>
+          <li><i class="chip-lime mdi mdi-bell-ring-outline"></i><div><b>Nudges.</b> <span>One tap to remind the friend who hasn't proved today.</span></div></li>
+        </ul>
+      </div>
+      <div class="split-media reveal d1" style="--halo:rgba(167,139,250,.18)">
+        <div class="phone"><img src="/assets/screens/kept.webp" alt="Day kept celebration screen" loading="lazy"></div>
+      </div>
+    </div>
+  </section>
 
-    <!-- 5. BUILT FOR SEEKER -->
-    <section class="reveal">
-      <h2>Built for Seeker</h2>
-      <p>On Seeker, your keys live in the device's secure element and the wallet is part of the OS. Your Keeper identity is bound to hardware you own — not to us, and not to a browser extension you could lose. Network fees are under $0.001.</p>
-      <div class="caption">Running on Solana devnet for the CLOCK IN hackathon. Mainnet-ready.</div>
-    </section>
-
-    <!-- 6. FOOTER -->
-    <footer>
-      <div class="footer-content reveal">
-        <div class="footer-text">KEPT · Built for the Solana Mobile CLOCK IN hackathon, 2026</div>
-        <div class="footer-links">
-          <a href="#">GitHub</a>
-          <a href="#">X</a>
+  <!-- BOUNTIES -->
+  <section id="bounties">
+    <div class="wrap split">
+      <div>
+        <div class="eyebrow reveal">Bounties</div>
+        <h2 class="reveal d1">Free pools. The catch is you have to last.</h2>
+        <p class="body reveal d2">Creators and communities fund a pool. Joining is free. Prove every day and you split the pot with everyone still standing. Miss once and you're out.</p>
+        <div class="bounty-row reveal d3">
+          <div class="bounty b-sky"><div class="t"><i class="mdi mdi-bottle-soda-outline"></i>Hydrate Week</div><div><div class="v">50,000 SKR</div><div class="s">Drift · closes in 5h</div></div><i class="mdi mdi-bottle-soda-outline big"></i></div>
+          <div class="bounty b-amber"><div class="t"><i class="mdi mdi-guitar-acoustic"></i>Sol Strings</div><div><div class="v">8,000 SKR</div><div class="s">@riffs · closes in 9h</div></div><i class="mdi mdi-guitar-acoustic big"></i></div>
         </div>
       </div>
-    </footer>
+      <div class="split-media reveal d1" style="--halo:rgba(58,163,242,.18)">
+        <div class="phone"><img src="/assets/screens/bounties.webp" alt="Bounties feed screen" loading="lazy"></div>
+      </div>
+    </div>
+  </section>
 
-  </div>
+  <!-- THE RULE -->
+  <section class="rule">
+    <div class="wrap">
+      <h2 class="reveal">You can buy how you look.</h2>
+      <h2 class="reveal d1 lime">You can never buy what you've kept.</h2>
+      <div class="stamp reveal d2">
+        <span class="brand-mark"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M54 45L78 76" fill="none" stroke="#F2F0EA" stroke-width="16" stroke-linecap="round"/><path d="M23 44L40 60L78 24" fill="none" stroke="#C5F25C" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/><path d="M23 24V76" fill="none" stroke="#F2F0EA" stroke-width="16" stroke-linecap="round"/></svg></span>
+        <b>KEPT</b><span class="mono">VERIFIED · DAY 3 · 9:41</span>
+      </div>
+      <div class="rule-avatars">
+        <div class="phone reveal"><img src="/assets/screens/avatar.webp" alt="Avatar builder screen" loading="lazy"></div>
+        <div class="phone reveal d1"><img src="/assets/screens/profile.webp" alt="Profile screen" loading="lazy"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCREENS -->
+  <section id="screens" style="padding-bottom:70px">
+    <div class="wrap" style="display:flex;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:34px">
+      <div class="sec-head reveal" style="margin-bottom:0">
+        <div class="eyebrow">Inside the app</div>
+        <h2>Every screen, every state.</h2>
+      </div>
+      <div class="gallery-nav" style="margin-left:auto">
+        <button type="button" aria-label="Previous" data-dir="-1"><i class="mdi mdi-arrow-left"></i></button>
+        <button type="button" aria-label="Next" data-dir="1"><i class="mdi mdi-arrow-right"></i></button>
+      </div>
+    </div>
+    <div class="gallery" id="gallery">
+      <figure><div class="phone"><img src="/assets/screens/welcome.webp" alt="Welcome" loading="lazy"></div><figcaption><b>A1</b>Welcome</figcaption></figure>
+      <figure><div class="phone"><img src="/assets/screens/today.webp" alt="Today" loading="lazy"></div><figcaption><b>B1</b>Today, active</figcaption></figure>
+      <figure><div class="phone"><img src="/assets/screens/create.webp" alt="Create an Oath" loading="lazy"></div><figcaption><b>C1</b>Create an Oath</figcaption></figure>
+      <figure><div class="phone"><img src="/assets/screens/oath.webp" alt="Active Oath" loading="lazy"></div><figcaption><b>D2</b>Oath, active</figcaption></figure>
+      <figure><div class="phone"><img src="/assets/screens/broken.webp" alt="Broken Oath" loading="lazy"></div><figcaption><b>D3</b>Oath broken</figcaption></figure>
+      <figure><div class="phone"><img src="/assets/screens/proof.webp" alt="Daily proof" loading="lazy"></div><figcaption><b>F1</b>Daily proof</figcaption></figure>
+      <figure><div class="phone"><img src="/assets/screens/kept.webp" alt="Day kept" loading="lazy"></div><figcaption><b>F5</b>Day kept</figcaption></figure>
+      <figure><div class="phone"><img src="/assets/screens/review.webp" alt="Group review" loading="lazy"></div><figcaption><b>G1</b>Group review</figcaption></figure>
+      <figure><div class="phone"><img src="/assets/screens/bounties.webp" alt="Bounties" loading="lazy"></div><figcaption><b>H1</b>Bounties</figcaption></figure>
+      <figure><div class="phone"><img src="/assets/screens/profile.webp" alt="Profile" loading="lazy"></div><figcaption><b>I1</b>Profile</figcaption></figure>
+      <figure><div class="phone"><img src="/assets/screens/result.webp" alt="Result" loading="lazy"></div><figcaption><b>L1</b>Kept every day</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- SEEKER -->
+  <section id="seeker" class="seeker">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="eyebrow">Built for Seeker</div>
+        <h2>Your word, bound to hardware you own.</h2>
+        <p>On Seeker, your keys live in the device's secure element and the wallet is part of the OS. Your Keeper identity is bound to your phone — not to us, and not to a browser extension you could lose.</p>
+      </div>
+      <div class="seek-grid">
+        <div class="seek reveal"><div class="tile o-lime"><i class="mdi mdi-cellphone-key"></i></div><h3>Secure element keys</h3><p>Signing happens on the device. Nothing to copy, nothing to leak.</p></div>
+        <div class="seek reveal d1"><div class="stat">&lt;$0.001</div><h3>Network fees</h3><p>Stake, prove and claim on Solana for fractions of a cent.</p></div>
+        <div class="seek reveal d2"><div class="tile o-vio"><i class="mdi mdi-lock-check-outline"></i></div><h3>On-chain record</h3><p>Every kept day is written to Solana. Streaks can't be bought or faked.</p></div>
+      </div>
+      <div class="caption"><span class="devnet">DEVNET</span>Running on Solana devnet for the CLOCK IN hackathon. Mainnet-ready.</div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <div class="glow glow-a" style="left:50%;margin-left:-310px;top:-120px"></div>
+    <div class="wrap" style="position:relative">
+      <img class="keeper-sm reveal" src="/assets/keeper/happy.svg" alt="">
+      <h2 class="reveal d1">Step up.<br>Place your word.</h2>
+      <p class="reveal d2">Keep your word. Level up. Or everyone sees.</p>
+      <div class="hero-cta reveal d3">
+        <a href="#" class="btn btn-lime"><i class="mdi mdi-android"></i>Download APK</a>
+        <a href="#" class="btn btn-dark"><i class="mdi mdi-github"></i>View source</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <a href="#" class="brand" style="font-size:18px">
+        <span class="brand-mark" style="width:32px;height:32px;border-radius:10px"><svg viewBox="0 0 100 100" aria-hidden="true" style="width:22px;height:22px"><path d="M54 45L78 76" fill="none" stroke="#F2F0EA" stroke-width="16" stroke-linecap="round"/><path d="M23 44L40 60L78 24" fill="none" stroke="#C5F25C" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/><path d="M23 24V76" fill="none" stroke="#F2F0EA" stroke-width="16" stroke-linecap="round"/></svg></span>
+        KEPT
+      </a>
+      <span class="note">Built for the Solana Mobile CLOCK IN hackathon, 2026</span>
+      <div class="links">
+        <a href="#" aria-label="GitHub"><i class="mdi mdi-github"></i></a>
+        <a href="#" aria-label="X"><i class="mdi mdi-alpha-x"></i></a>
+      </div>
+    </div>
+  </footer>
 
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.15
-      };
+    (function () {
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-      const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('active');
-            observer.unobserve(entry.target);
-          }
+      // Reveal on scroll
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+      document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+
+      // "One idea" lines light up as they reach the middle of the screen
+      var lines = document.querySelectorAll('.idea-line');
+      var lio = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { e.target.classList.toggle('on', e.isIntersecting); });
+      }, { rootMargin: '-35% 0px -35% 0px' });
+      lines.forEach(function (l) { lio.observe(l); });
+
+      // HP bar — same colour ramp as the app
+      var bar = document.getElementById('hpBar'), val = document.getElementById('hpVal'), note = document.getElementById('hpNote');
+      for (var i = 0; i < 20; i++) { var s = document.createElement('div'); s.className = 'hp-seg'; bar.appendChild(s); }
+      function segColor(i, hp) {
+        if (i >= hp / 5) return '#262626';
+        if (hp <= 20) return '#F87171';
+        if (hp <= 40) return '#FB923C';
+        var t = i / 19;
+        return 'rgb(' + Math.round(94 + 103 * t) + ',' + Math.round(234 + 8 * t) + ',' + Math.round(212 - 120 * t) + ')';
+      }
+      function paint(hp) {
+        [].forEach.call(bar.children, function (s, i) { s.style.background = segColor(i, hp); });
+        val.textContent = hp + ' / 100';
+        val.style.color = hp <= 20 ? '#F87171' : hp <= 40 ? '#FB923C' : '';
+      }
+      var story = [
+        [100, "Day 1. Everyone's clean."],
+        [80, 'Arjun missed day 2: −20.'],
+        [90, 'Three kept days in a row: +10 heal.'],
+        [70, 'Dev slipped on day 4: −20.'],
+        [50, 'Arjun again. −20. Odds are moving.'],
+        [30, 'Two more misses and the Oath breaks.'],
+        [50, 'Everyone kept twice: +20 heal. Hold it.']
+      ];
+      var k = 0; paint(100);
+      var hio = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (!e.isIntersecting || reduce) return;
+          hio.disconnect();
+          setInterval(function () { k = (k + 1) % story.length; paint(story[k][0]); note.textContent = story[k][1]; }, 2200);
         });
-      }, observerOptions);
+      }, { threshold: 0.6 });
+      hio.observe(document.getElementById('hpCard'));
 
-      document.querySelectorAll('.reveal').forEach(section => {
-        observer.observe(section);
+      // Keeper lines rotate
+      var kl = document.getElementById('keeperLine');
+      var quips = [
+        "Arjun's still on the couch. 3-to-1 he misses.",
+        'Quiet table. Go keep something.',
+        'Every Oath here is a bet on someone.',
+        'Seven for seven. Pay the Keeper.',
+        'Your record. I keep it honest.'
+      ];
+      var q = 0;
+      if (!reduce) setInterval(function () {
+        q = (q + 1) % quips.length;
+        kl.style.opacity = 0;
+        setTimeout(function () { kl.textContent = quips[q]; kl.style.opacity = 1; }, 250);
+      }, 3600);
+      kl.style.transition = 'opacity .25s';
+
+      // Gallery arrows
+      var g = document.getElementById('gallery');
+      document.querySelectorAll('.gallery-nav button').forEach(function (b) {
+        b.addEventListener('click', function () { g.scrollBy({ left: +b.dataset.dir * 262 * 2, behavior: 'smooth' }); });
       });
-    });
+    })();
   </script>
 </body>
 </html>
